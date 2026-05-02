@@ -29,9 +29,6 @@ jobs:
           MLFLOW_TRACKING_USERNAME: dyahinkud
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
-          # Install mlflow and other deps if not in project
-          pip install mlflow dagshub pandas scikit-learn docker
-          
           # Run the MLflow project
           # Using --env-manager local since we already installed dependencies in the runner
           mlflow run MLProject/ --env-manager local
