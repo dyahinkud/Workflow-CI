@@ -1,0 +1,12 @@
+name: sentiment_analysis
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip:
+      - mlflow
+      - pandas
+      - scikit-learn
+      - dagshub
+      - google-cloud-storage
+      - docker
