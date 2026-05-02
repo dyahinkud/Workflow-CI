@@ -58,10 +58,11 @@ jobs:
           MLFLOW_TRACKING_URI: https://dagshub.com/dyahinkud/Membangun_Model.mlflow
           MLFLOW_TRACKING_USERNAME: dyahinkud
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
+          MLFLOW_DOCKER_BASE_IMAGE: python:3.10-slim
         run: |
           # Build the docker image using MLflow
-          # This command will pull the model from DagsHub MLflow if needed
-          mlflow models build-docker -m ${{ steps.vars.outputs.MODEL_URI }} -n ${{ secrets.DOCKERHUB_USERNAME }}/sentiment-analysis-model:latest
+          # Using --env-manager local to avoid pyenv/deadsnakes PPA timeout issues
+          mlflow models build-docker -m ${{ steps.vars.outputs.MODEL_URI }} -n ${{ secrets.DOCKERHUB_USERNAME }}/sentiment-analysis-model:latest --env-manager local
           
           # Push the image to Docker Hub
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/sentiment-analysis-model:latest
